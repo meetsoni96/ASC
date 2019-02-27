@@ -117,7 +117,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BotProperties\CategoryInfo.cs" />
+    <Compile Include="BotProperties\CompanyResult.cs" />
+    <Compile Include="BotProperties\ContactResults.cs" />
+    <Compile Include="BotProperties\NamedValue.cs" />
     <Compile Include="BotProperties\ProductInfo.cs" />
+    <Compile Include="BotProperties\RawHtml.cs" />
     <Compile Include="BotStructure\BotCommon.cs" />
     <Compile Include="BotStructure\BotTemplate.cs" />
     <Compile Include="BotTemplates\TheDarkSideInitiative.cs" />
