@@ -116,6 +116,7 @@
     <Compile Include="BotStructure\BotCommon.cs" />
     <Compile Include="BotStructure\BotTemplate.cs" />
     <Compile Include="BotTemplates\TheDarkSideInitiative.cs" />
+    <Compile Include="DBContext\DBCommon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\HelperClass\HtmlDocument.cs">
       <SubType>Component</SubType>
