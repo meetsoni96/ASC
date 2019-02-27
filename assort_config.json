@@ -1,0 +1,26 @@
+{
+  "source" : "thedarksideinitiative",
+  "domain" : "www.thedarksideinitiative.com",
+  "homepage" : "https://www.thedarksideinitiative.com/",
+  "category_list": [
+    '//*[@id="navpanel"]/div[@class="mainnav"]//ul//a',
+    '//test1',
+    '//test2'
+    ],
+  "responce_timeout ": 10, //seconds
+  "request": {
+    "headers": "b",
+    "cookie": "d",
+    "referer": "f",
+    "method" : "post",
+    "data" : "search_term=shirt"
+  },
+  "thread_count": 3,
+  "site_map" : "https://www.flipkart.com/sitemap?otracker=undefined_footer_navlinks",
+  "product_list":[ //used to confirm that reached to product lists 
+      '//div[@class="blocklayout do-infinite"]/div[@class="block product size-medium fixed-ratio"]//a[@class="product-card-info"]',
+      '//test1',
+      '//test2'
+    ],
+    
+}
