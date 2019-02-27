@@ -12,9 +12,20 @@ namespace ASC1._0.BotTemplates
 {
     public class TheDarkSideInitiative : BotTemplate
     {
+        /// <summary>
+        /// Here we are setting common prop of bot and pass it to method
+        /// </summary>
+        public override BotCommon BotCommon
+        {
+            get
+            {
+                return new BotCommon { ContentType = "application/json", IgnoreHttpErrorCode = "404", ResetCookieValue = true };
+            }
+        }
         public override Dictionary<string, string> GetCategoryLinks(string url)
         {
             XDocument doc = new XDocument();
+            
             doc = CommonRequest.GetXmlResponse(url);
             throw new NotImplementedException();
         }

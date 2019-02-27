@@ -1,4 +1,5 @@
-﻿using DevComponents.Html;
+﻿using ASC1._0.BotStructure;
+using DevComponents.Html;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +11,7 @@ using System.Xml.Linq;
 
 namespace ASC1._0.Utility.HttpRequest
 {
-    public class CommonRequest
+    public class CommonRequest:BotCommon
     {
         /// <summary>
         /// This method returns xdoc for sepcific request
@@ -42,5 +43,21 @@ namespace ASC1._0.Utility.HttpRequest
 
             return xdoc;
         }
+
+
+
+        /// <summary>
+        /// this method retruns xdoc with specific BotCommon prop and url
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="bt"></param>
+        /// <returns></returns>
+        public static XDocument GetXmlResponse(string url, BotCommon bt)
+        {
+            //need to implement
+            XDocument doc = new XDocument();
+            return doc;
+        }
+
     }
 }

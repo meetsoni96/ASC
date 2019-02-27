@@ -40,6 +40,8 @@ namespace ASC1._0.BotStructure
         /// </summary>
         /// <returns></returns>
         public abstract List<ProductInfo> GetProductDetails();
-        
+
+        public virtual BotCommon BotCommon { get { return null; } }
+
     }
 }
