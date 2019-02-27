@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ASC.Common;
+using ASC.Common;
+using System;
 
 namespace ASC1._0.BotProperties
 {

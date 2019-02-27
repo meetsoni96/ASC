@@ -129,12 +129,15 @@
     <Compile Include="JsonConfig\ConfigInfo.cs" />
     <Compile Include="JsonConfig\Request.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\CommonAlgorithm.cs" />
     <Compile Include="Utility\HelperClass\HtmlDocument.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utility\HelperClass\HtmlElement.cs" />
     <Compile Include="Utility\HelperClass\HtmlHelper.cs" />
     <Compile Include="Utility\HttpRequest\CommonRequest.cs" />
+    <Compile Include="Utility\StringHelper.cs" />
+    <Compile Include="Utility\WellKnownConstants.cs" />
     <Compile Include="WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
