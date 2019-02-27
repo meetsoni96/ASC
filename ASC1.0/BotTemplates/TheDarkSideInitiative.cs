@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using ASC1._0.BotProperties;
+using ASC1._0.Utility.HttpRequest;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace ASC1._0.BotTemplates
 {
@@ -11,6 +14,8 @@ namespace ASC1._0.BotTemplates
     {
         public override Dictionary<string, string> GetCategoryLinks(string url)
         {
+            XDocument doc = new XDocument();
+            doc = CommonRequest.GetXmlResponse(url);
             throw new NotImplementedException();
         }
 

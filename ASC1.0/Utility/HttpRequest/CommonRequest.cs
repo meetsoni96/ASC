@@ -18,7 +18,7 @@ namespace ASC1._0.Utility.HttpRequest
         /// <param name="url"></param>
         /// <param name="Referer"></param>
         /// <returns></returns>
-        protected XDocument GetXmlResponse(string url,string referer=null)
+        public static XDocument GetXmlResponse(string url,string referer=null)
         {
             Uri siteUri = new Uri(url);
             string html = string.Empty;
