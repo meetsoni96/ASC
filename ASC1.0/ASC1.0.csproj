@@ -125,7 +125,14 @@
     <Compile Include="BotStructure\BotCommon.cs" />
     <Compile Include="BotStructure\BotTemplate.cs" />
     <Compile Include="BotTemplates\TheDarkSideInitiative.cs" />
+    <Compile Include="DBContext\CategoriesInDomain.cs" />
+    <Compile Include="DBContext\CategoriesInDomainDataAccess.cs" />
     <Compile Include="DBContext\DBCommon.cs" />
+    <Compile Include="DBContext\DBManager.cs" />
+    <Compile Include="DBContext\DomainDataAccess.cs" />
+    <Compile Include="DBContext\Domains.cs" />
+    <Compile Include="DBContext\Products.cs" />
+    <Compile Include="DBContext\ProductsDataAccess.cs" />
     <Compile Include="JsonConfig\ConfigInfo.cs" />
     <Compile Include="JsonConfig\Request.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
