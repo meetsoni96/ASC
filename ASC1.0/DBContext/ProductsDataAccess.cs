@@ -12,7 +12,7 @@ namespace ASC1._0.DBContext
         DBManager objDBManager = new DBManager();
         DataTable dt = new DataTable();
         string query = string.Empty;
-        public void SaveProductsInDomain(Products product)
+        public DataTable SaveProductsInDomain(Products product)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -26,8 +26,8 @@ namespace ASC1._0.DBContext
             sqlCommand.Parameters.AddWithValue("@MPN", product.MPN);
             sqlCommand.Parameters.AddWithValue("@Product_Url", product.ProductUrl);
             sqlCommand.Parameters.AddWithValue("@Availability", product.Availability);
-            objDBManager.ExecuteNonQuery(sqlCommand);
-            sqlCommand.Dispose();
+            //objDBManager.ExecuteNonQuery(sqlCommand);
+            return objDBManager.ExecuteDataTable(sqlCommand);
 
         }
 
@@ -48,7 +48,7 @@ namespace ASC1._0.DBContext
 
             }
 
-            return objDBManager.ExecuteDataTable(sqlCommand); ;
+            return objDBManager.ExecuteDataTable(sqlCommand);
         }
     }
 }
