@@ -1,0 +1,12 @@
+{
+  "source" : "anthonysespresso",
+  "domain" : "www.anthonysespresso.com",
+  "homepage" : "https://www.anthonysespresso.com/",
+  "category_list": [
+    '//*[@id='bs-megamenu']//ul/li[@class=' ']/a',
+    ],
+  "responce_timeout ": 10, //seconds
+  "thread_count": 3,
+  "site_map" : "https://www.anthonysespresso.com/index.php?route=information/sitemap",
+  "product_list":[],
+}
