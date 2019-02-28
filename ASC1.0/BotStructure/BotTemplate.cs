@@ -1,4 +1,5 @@
 ﻿using ASC1._0.BotProperties;
+using ASC1._0.BotTemplates;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +9,17 @@ namespace ASC1._0.BotStructure
 {
     public abstract class BotTemplate:BotCommon
     {
+
+        public abstract string DefaultCurrencyType { get; set; }
+        public abstract string DefaulCurrenncySymbol { get; set; }
+
+        public abstract string Culture { get; set; }
         /// <summary>
         /// If we have domain url then this method find out list of category
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-       public abstract Dictionary<string, string> GetCategoryLinks(string url);
+       public abstract List<CategoryResult> GetCategoryLinks(string url);
 
 
        /// <summary>
@@ -22,7 +28,7 @@ namespace ASC1._0.BotStructure
        /// <param name="url"></param>
        /// <param name="IsSiteMap"></param>
        /// <returns></returns>
-       public abstract Dictionary<string, string> GetCategoryLinks(string url,bool IsSiteMap);
+       public abstract List<CategoryResult> GetCategoryLinks(string url,bool IsSiteMap);
 
        
 
@@ -31,7 +37,7 @@ namespace ASC1._0.BotStructure
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-       public abstract Dictionary<string, string> GetProductListingUrl(string url);
+       public abstract List<ProductResults> GetProductListingUrl(string url);
 
 
 
@@ -39,7 +45,7 @@ namespace ASC1._0.BotStructure
         /// We get product info for specific products(valid)
         /// </summary>
         /// <returns></returns>
-        public abstract List<ProductInfo> GetProductDetails();
+        public abstract ProductInfo GetProductDetails(string url);
 
         public virtual BotCommon BotCommon { get { return null; } }
 

@@ -43,6 +43,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.9.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.9.0\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -103,6 +107,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="WebForm1.aspx" />
+    <Content Include="DomainTemplateConfigs\consiglioskitchenware.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -124,6 +129,9 @@
     <Compile Include="BotProperties\RawHtml.cs" />
     <Compile Include="BotStructure\BotCommon.cs" />
     <Compile Include="BotStructure\BotTemplate.cs" />
+    <Compile Include="BotStructure\CategoryResult.cs" />
+    <Compile Include="BotStructure\ProductResults.cs" />
+    <Compile Include="BotTemplates\Consiglioskitchenware.cs" />
     <Compile Include="BotTemplates\TheDarkSideInitiative.cs" />
     <Compile Include="DBContext\CategoriesInDomain.cs" />
     <Compile Include="DBContext\CategoriesInDomainDataAccess.cs" />
@@ -142,6 +150,8 @@
     </Compile>
     <Compile Include="Utility\HelperClass\HtmlElement.cs" />
     <Compile Include="Utility\HelperClass\HtmlHelper.cs" />
+    <Compile Include="Utility\HelperClass\PriceParser.cs" />
+    <Compile Include="Utility\HelperClass\XExtensions.cs" />
     <Compile Include="Utility\HttpRequest\CommonRequest.cs" />
     <Compile Include="Utility\StringHelper.cs" />
     <Compile Include="Utility\WellKnownConstants.cs" />
@@ -154,7 +164,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DomainTemplateConfigs\" />
+    <Folder Include="Utility\HTMLAgility\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

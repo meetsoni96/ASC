@@ -21,6 +21,9 @@ namespace ASC1._0.JsonConfig
         [JsonProperty("method")]
         public string method { get; set; }
 
+        [JsonProperty("accept")]
+        public string accept { get; set; }
+
         [JsonProperty("data")]
         public string data { get; set; }
     }

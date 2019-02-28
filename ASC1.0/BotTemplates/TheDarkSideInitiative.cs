@@ -10,6 +10,7 @@ using System.Xml.Linq;
 
 namespace ASC1._0.BotTemplates
 {
+    /*
     public class TheDarkSideInitiative : BotTemplate
     {
         /// <summary>
@@ -22,7 +23,7 @@ namespace ASC1._0.BotTemplates
                 return new BotCommon { ContentType = "application/json", IgnoreHttpErrorCode = "404", ResetCookieValue = true };
             }
         }
-        public override Dictionary<string, string> GetCategoryLinks(string url)
+        public override List<CategoryResult> GetCategoryLinks(string url)
         {
             XDocument doc = new XDocument();
             
@@ -30,19 +31,20 @@ namespace ASC1._0.BotTemplates
             throw new NotImplementedException();
         }
 
-        public override Dictionary<string, string> GetCategoryLinks(string url, bool IsSiteMap)
+        public override List<CategoryResult> GetCategoryLinks(string url, bool IsSiteMap)
         {
             throw new NotImplementedException();
         }
 
-        public override List<ProductInfo> GetProductDetails()
+        public override ProductInfo GetProductDetails(string url)
         {
             throw new NotImplementedException();
         }
 
-        public override Dictionary<string, string> GetProductListingUrl(string url)
+        public override List<ProductResults> GetProductListingUrl(string url)
         {
             throw new NotImplementedException();
         }
     }
+    */
 }

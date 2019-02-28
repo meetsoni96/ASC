@@ -133,5 +133,7 @@ namespace DevComponents.Html
             XDocument xdoc = XDocument.Parse(doc.InnerXml);
             return xdoc.Root.Descendants().Where(x => !string.IsNullOrEmpty(x.Value)).Select(x => x.Value).ToArray();
         }
+
+       
     }
 }
