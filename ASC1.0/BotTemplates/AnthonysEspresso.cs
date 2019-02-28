@@ -58,35 +58,32 @@ namespace ASC1._0.BotTemplates
         public override List<CategoryResult> GetCategoryLinks(string url)
         {
             //Get xdoc from URL
-            XDocument xdoc = CommonRequest.GetXmlResponse(configObj.homepage, configObj);
+            HtmlAgilityPack.HtmlDocument hdoc = CommonRequest.GetHtmlResponse(configObj.homepage, configObj);
+          
+            IEnumerable<HtmlAgilityPack.HtmlNode> hNode = hdoc.DocumentNode.SelectNodes("//*[@id='bs-megamenu']//ul/li[@class=' ']/a");
 
-            XNamespace xns = xdoc.Root.Name.Namespace;
 
-            string categoryLinks = configObj.category_list[0];
+            
             CategoriesInDomain category = new CategoriesInDomain();
             CategoriesInDomainDataAccess catDAC = new CategoriesInDomainDataAccess();
 
-            var getCategoryInfo = xdoc.Root.GetDescendant(xns, "nav", "class", "site-navigation").GetDescendants(xns, "li", "class", "navmenu-item-parent");
-
-            //*[@id='bs-megamenu']//ul/li[@class=' ']/a
-            //ictionary<string, string> a = new Dictionary<string, string>();
+            //list of categorylinks
             List<CategoryResult> sr = new List<CategoryResult>();
-            foreach (XElement xelement in getCategoryInfo)
+            
+
+            foreach(var item in hNode)
             {
-                List<XElement> xelements = xelement.GetDescendants(xns, "a", "class", "navmenu-link");
-                foreach (XElement x in xelements)
-                {
-                    string link = x.GetAttribute("href").GetTrim();
-                    string title = x.GetValue().GetTrim();
-                    category.CategoryName = title;
-                    category.CategoryUrl = link;
-                    category.DomainID = 1;
-                    DataTable dt = new DataTable();
-                    dt = catDAC.AddCategoriesInDomain(category);
-                    int categoryID = int.Parse(dt.Rows[0][0].ToString());
-                    sr.Add(new CategoryResult(link, title, categoryID));
-                   
-                }
+                string link = item.Attributes["href"].Value;
+                string title = item.InnerText;
+
+                //strore category in databse
+                category.CategoryName = title;
+                category.CategoryUrl = link;
+                category.DomainID = 2;
+                DataTable dt = new DataTable();
+                dt = catDAC.AddCategoriesInDomain(category);
+                int categoryID = int.Parse(dt.Rows[0][0].ToString());
+                sr.Add(new CategoryResult(link, title, categoryID));
             }
 
             return sr;
@@ -112,7 +109,7 @@ namespace ASC1._0.BotTemplates
 
             HtmlAgilityPack.HtmlDocument hdoc = CommonRequest.GetHtmlResponse(actualURL, configObj);
 
-            IEnumerable<HtmlAgilityPack.HtmlNode> hNode = hdoc.DocumentNode.SelectNodes("//*[@id='bs-megamenu']//ul/li[@class=' ']/a");
+            IEnumerable<HtmlAgilityPack.HtmlNode> hNode = hdoc.DocumentNode.SelectNodes("//div[@id='products']//h3[@class='name']/a");
 
             string nextPageLink = string.Empty;
             if (hdoc.DocumentNode.SelectSingleNode("//ul[@class='pagination']/li[@class='active']/following-sibling::li/a") != null && hdoc.DocumentNode.SelectSingleNode("//ul[@class='pagination']/li[@class='active']/following-sibling::li/a").Attributes["href"] != null)

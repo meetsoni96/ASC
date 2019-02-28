@@ -106,8 +106,10 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestDomain2.aspx" />
     <Content Include="WebForm1.aspx" />
     <Content Include="DomainTemplateConfigs\consiglioskitchenware.json" />
+    <Content Include="DomainTemplateConfigs\anthonysespresso.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -146,6 +148,13 @@
     <Compile Include="JsonConfig\ConfigInfo.cs" />
     <Compile Include="JsonConfig\Request.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestDomain2.aspx.cs">
+      <DependentUpon>TestDomain2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TestDomain2.aspx.designer.cs">
+      <DependentUpon>TestDomain2.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Utility\CommonAlgorithm.cs" />
     <Compile Include="Utility\HelperClass\HtmlDocument.cs">
       <SubType>Component</SubType>

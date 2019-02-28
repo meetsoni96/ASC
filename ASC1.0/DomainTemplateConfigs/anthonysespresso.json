@@ -3,10 +3,19 @@
   "domain" : "www.anthonysespresso.com",
   "homepage" : "https://www.anthonysespresso.com/",
   "category_list": [
-    '//*[@id='bs-megamenu']//ul/li[@class=' ']/a',
     ],
   "responce_timeout ": 10, //seconds
   "thread_count": 3,
   "site_map" : "https://www.anthonysespresso.com/index.php?route=information/sitemap",
-  "product_list":[],
+  "response_timeout ": 10,
+  "request": {
+    "headers": "",
+    "cookie": "",
+    "referrer": "https://www.anthonysespresso.com",
+    "method": "post",
+    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    "data" : ""
+  },
+  "product_list":[ 
+    ]
 }

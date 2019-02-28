@@ -99,7 +99,16 @@ namespace ASC1._0.Utility.HttpRequest
 
         public static HtmlAgilityPack.HtmlDocument GetHtmlResponse(string url,JsonConfig.ConfigInfo cf)
         {
-            string ActualUrl ="https://"+ url;
+            string ActualUrl = string.Empty;
+            if (url.Contains("http"))
+            {
+                ActualUrl = url;
+            }
+            else
+            {
+                ActualUrl= "https://" + url;
+            }
+            
             Uri siteUri = new Uri(ActualUrl);
             string html = string.Empty;
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Ssl3 | System.Net.SecurityProtocolType.Tls | System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
