@@ -1,6 +1,5 @@
 ﻿using ASC1._0.BotStructure;
 using System;
-using System.Data;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,39 +11,38 @@ using System.Xml.Linq;
 using ASC1._0.Utility.HttpRequest;
 using ASC1._0.Utility;
 using DevComponents.Html;
-using ASC1._0.DBContext;
 
 namespace ASC1._0.BotTemplates
 {
-    public class Consiglioskitchenware : BotTemplate
+    public class AnthonysEspresso : BotTemplate
     {
         public override string DefaultCurrencyType
         {
             get
             {
-                return "CAD";
+                return "USD";
             }
             set
             {
-             
+
             }
         }
         public override string DefaulCurrenncySymbol
         {
-            get { return "CAD"; }
+            get { return "$"; }
             set { }
         }
 
         public override string Culture
         {
-            get { return "en-CA"; }
+            get { return "en-US"; }
             set { }
         }
-           
-       
+
+
         //Read Config file
         List<ProductResults> pr = new List<ProductResults>();
-        static string configContent = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"\DomainTemplateConfigs\consiglioskitchenware.json");
+        static string configContent = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"\DomainTemplateConfigs\anthonysespresso.json");
         ConfigInfo configObj = ReturnConfigs();
         /// <summary>
         /// Returns config details
@@ -61,12 +59,13 @@ namespace ASC1._0.BotTemplates
             XDocument xdoc = CommonRequest.GetXmlResponse(configObj.homepage, configObj);
 
             XNamespace xns = xdoc.Root.Name.Namespace;
-            CategoriesInDomain category = new CategoriesInDomain();
-            CategoriesInDomainDataAccess catDAC = new CategoriesInDomainDataAccess();
+
             string categoryLinks = configObj.category_list[0];
 
 
             var getCategoryInfo = xdoc.Root.GetDescendant(xns, "nav", "class", "site-navigation").GetDescendants(xns, "li", "class", "navmenu-item-parent");
+
+            //*[@id='bs-megamenu']//ul/li[@class=' ']/a
             //ictionary<string, string> a = new Dictionary<string, string>();
             List<CategoryResult> sr = new List<CategoryResult>();
             foreach (XElement xelement in getCategoryInfo)
@@ -74,18 +73,9 @@ namespace ASC1._0.BotTemplates
                 List<XElement> xelements = xelement.GetDescendants(xns, "a", "class", "navmenu-link");
                 foreach (XElement x in xelements)
                 {
-                    
                     string link = x.GetAttribute("href").GetTrim();
                     string title = x.GetValue().GetTrim();
-                    
-                    
-                    category.CategoryName = title;
-                    category.CategoryUrl = link;
-                    category.DomainID = 1;
-                    DataTable dt = new DataTable();
-                    dt = catDAC.AddCategoriesInDomain(category);
-                    int categoryID = int.Parse(dt.Rows[0][0].ToString());
-                    sr.Add(new CategoryResult(link, title, categoryID));
+                    sr.Add(new CategoryResult(link, title));
                 }
             }
 
@@ -97,7 +87,7 @@ namespace ASC1._0.BotTemplates
             throw new NotImplementedException();
         }
 
-        public override List<ProductResults> GetProductListingUrl(string url, int categoryID)
+        public override List<ProductResults> GetProductListingUrl(string url)
         {
             string actualURL = string.Empty;
             string domain = configObj.domain;
@@ -112,17 +102,13 @@ namespace ASC1._0.BotTemplates
 
             HtmlAgilityPack.HtmlDocument hdoc = CommonRequest.GetHtmlResponse(actualURL, configObj);
 
-            IEnumerable<HtmlAgilityPack.HtmlNode> hNode = hdoc.DocumentNode.SelectNodes("//div[@class='productgrid--items']//div[@class='productitem']//h2/a");
+            IEnumerable<HtmlAgilityPack.HtmlNode> hNode = hdoc.DocumentNode.SelectNodes("//*[@id='bs-megamenu']//ul/li[@class=' ']/a");
 
             string nextPageLink = string.Empty;
-            if (hdoc.DocumentNode.SelectSingleNode("//li[@class='pagination--next']/a") != null && hdoc.DocumentNode.SelectSingleNode("//li[@class='pagination--next']/a").Attributes["href"] != null)
+            if (hdoc.DocumentNode.SelectSingleNode("//ul[@class='pagination']/li[@class='active']/following-sibling::li/a") != null && hdoc.DocumentNode.SelectSingleNode("//ul[@class='pagination']/li[@class='active']/following-sibling::li/a").Attributes["href"] != null)
             {
-                nextPageLink = hdoc.DocumentNode.SelectSingleNode("//li[@class='pagination--next']/a").Attributes["href"].Value;
+                nextPageLink = hdoc.DocumentNode.SelectSingleNode("//ul[@class='pagination']/li[@class='active']/following-sibling::li/a").Attributes["href"].Value;
             }
-
-
-
-
 
             bool IsNextPage = !string.IsNullOrWhiteSpace(nextPageLink) ? true : false;
             foreach (var node in hNode)
@@ -130,12 +116,12 @@ namespace ASC1._0.BotTemplates
                 string hrefValue = node.Attributes["href"].Value;
                 string prodTitle = node.InnerText;
 
-                pr.Add(new ProductResults(hrefValue, prodTitle,categoryID));
+                pr.Add(new ProductResults(hrefValue, prodTitle));
             }
 
             if (IsNextPage)
             {
-                pr = GetProductListingUrl(nextPageLink,categoryID);
+                pr = GetProductListingUrl(nextPageLink);
             }
             return pr;
 
@@ -146,7 +132,7 @@ namespace ASC1._0.BotTemplates
         //    List<ProductResults>  pr =GetProductListingUrl(nextPageLink);
         //}
 
-        public override ProductInfo GetProductDetails(string url, int categoryID)
+        public override ProductInfo GetProductDetails(string url)
         {
             string actualURL = string.Empty;
             string domain = configObj.domain;
@@ -163,50 +149,26 @@ namespace ASC1._0.BotTemplates
 
             //Image URL
             //meta property="og:image:secure_url" content=
-            string imageUrl = hdoc.DocumentNode.SelectSingleNode("//meta[@property='og:image:secure_url']").Attributes["content"].Value;
+            string imageUrl = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//a[@class='info_colorbox']").Attributes["href"].Value;
 
-            string productTitle = hdoc.DocumentNode.SelectSingleNode("//h1[@class='product-title']").InnerText.GetTrim();
+            string productTitle = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//h1[@class='title-product']").InnerText.GetTrim();
 
-            string brand = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-vendor1']").InnerText.GetTrim();
-            string sku = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-sku']").InnerText.GetTrim();
+            string brand = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//li[contains(text(),'Brand')]/a").InnerText.GetTrim();
+            string sku = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//li[contains(text(),'Product Code')]").InnerText.GetTrim();
+            sku = sku.SubLastStringAfter(":").GetTrim();
 
-            string weight = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-weight']").InnerText.GetTrim();
+            string strikePrice = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//span[contains(@class,'price-old')]").InnerText.GetTrim();
 
-            string strikePrice = hdoc.DocumentNode.SelectSingleNode("//div[@class='price--compare-at visible']//span[@class='money']").InnerText.GetTrim();
-
-            string price = hdoc.DocumentNode.SelectSingleNode("//div[@class='price--main']//span[@class='money']").InnerText.GetTrim();
+            string price = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//span[contains(@class,'price-new')]").InnerText.GetTrim();
 
             string mpn = string.Empty;
 
             bool availibilty = true;
+
             string currency = string.Empty;
-            decimal? finalStrikePrice = ASC1._0.Utility.HelperClass.PriceParser.ParsePrice(strikePrice, DefaultCurrencyType, DefaulCurrenncySymbol, Culture,out currency);
-
-            decimal? finalPrice= ASC1._0.Utility.HelperClass.PriceParser.ParsePrice(price, DefaultCurrencyType, DefaulCurrenncySymbol, Culture, out currency);
-
-            ProductInfo product = new ProductInfo();
-            product.DomainID = 1;
-            product.CategoryID = categoryID;
-            product.Title = productTitle;
-            product.MPN = mpn;
-            product.Price = finalPrice;
-            product.ProductUrl = actualURL;
-            product.StrikeThroughPrice = finalStrikePrice;
-            product.SKU = sku;
-            product.ImageUrl = imageUrl;
-            ProductsDataAccess productDAC = new ProductsDataAccess();
-            productDAC.SaveProductsInDomain(product);
-
-            return new ProductInfo(1, categoryID, actualURL, productTitle, finalPrice, finalStrikePrice, sku, mpn, availibilty);
-
-
+            decimal? finalStrikePrice = ASC1._0.Utility.HelperClass.PriceParser.ParsePrice(strikePrice, DefaultCurrencyType, DefaulCurrenncySymbol, Culture, out currency);
+            decimal? finalPrice = ASC1._0.Utility.HelperClass.PriceParser.ParsePrice(price, DefaultCurrencyType, DefaulCurrenncySymbol, Culture, out currency);
+            return new ProductInfo(1, 1, actualURL, productTitle, finalPrice, finalStrikePrice, sku, mpn, availibilty);
         }
-
-
-
-
-
     }
-
-
 }

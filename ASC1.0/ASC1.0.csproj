@@ -131,6 +131,7 @@
     <Compile Include="BotStructure\BotTemplate.cs" />
     <Compile Include="BotStructure\CategoryResult.cs" />
     <Compile Include="BotStructure\ProductResults.cs" />
+    <Compile Include="BotTemplates\AnthonysEspresso.cs" />
     <Compile Include="BotTemplates\Consiglioskitchenware.cs" />
     <Compile Include="BotTemplates\TheDarkSideInitiative.cs" />
     <Compile Include="DBContext\CategoriesInDomain.cs" />
