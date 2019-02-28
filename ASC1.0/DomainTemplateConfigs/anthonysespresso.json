@@ -1,0 +1,23 @@
+{
+  "source" : "anthonysespresso",
+  "domain" : "www.anthonysespresso.com",
+  "homepage" : "https://www.anthonysespresso.com/",
+  "category_list": [
+    '//div[@id="mainmenutop"]//li[contains(@class,"parent dropdown")]//li/a[@class="dropdown-toggle"]',
+	'//div[@id="mainmenutop"]//li[contains(@class,"parent dropdown")]//li//div[@class="mega-col-inner"]//a'
+    ],
+  "responce_timeout ": 10, //seconds
+/*  "request": {
+    "headers": "b",
+    "cookie": "d",
+    "referer": "f",
+    "method" : "post",
+    "data" : "search_term=shirt"
+  },*/
+  "thread_count": 3,
+  "site_map" : "https://www.anthonysespresso.com/index.php?route=information/sitemap",
+  "product_list":[ //used to confirm that reached to product lists 
+      '//*[@id="products"]//div[@class="product-meta"]//h3/a',
+    ],
+    
+}

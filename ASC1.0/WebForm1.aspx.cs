@@ -19,7 +19,7 @@ namespace ASC1._0
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            string contents = File.ReadAllText(@"C:\Users\meet.soni\TestJson.json");
+            string contents = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"\DomainTemplateConfigs\anthonysespresso.json");
 
             var jobject = Newtonsoft.Json.Linq.JObject.Parse(contents);
 

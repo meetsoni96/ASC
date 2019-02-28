@@ -43,5 +43,7 @@ namespace ASC1._0.BotStructure
 
         public virtual BotCommon BotCommon { get { return null; } }
 
-    }
+        protected abstract string ConfigFile { get; }
+
+}
 }

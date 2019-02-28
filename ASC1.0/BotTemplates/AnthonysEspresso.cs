@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace ASC1._0.BotTemplates
 {
-    public class TheDarkSideInitiative : BotTemplate
+    public class AnthonysEspresso : BotTemplate
     {
         /// <summary>
         /// Here we are setting common prop of bot and pass it to method
@@ -25,7 +25,7 @@ namespace ASC1._0.BotTemplates
         public override Dictionary<string, string> GetCategoryLinks(string url)
         {
             XDocument doc = new XDocument();
-            
+
             doc = CommonRequest.GetXmlResponse(url);
             throw new NotImplementedException();
         }
@@ -45,6 +45,6 @@ namespace ASC1._0.BotTemplates
             throw new NotImplementedException();
         }
 
-        protected override string ConfigFile { get { return "thedarksideinitiative"; } }
+        protected override string ConfigFile { get { return "anthonysespresso"; } }
     }
 }
