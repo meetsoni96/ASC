@@ -102,7 +102,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WebForm1.aspx" />
+    <Content Include="Compare.aspx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -145,12 +145,12 @@
     <Compile Include="Utility\HttpRequest\CommonRequest.cs" />
     <Compile Include="Utility\StringHelper.cs" />
     <Compile Include="Utility\WellKnownConstants.cs" />
-    <Compile Include="WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
+    <Compile Include="Compare.aspx.cs">
+      <DependentUpon>Compare.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
+    <Compile Include="Compare.aspx.designer.cs">
+      <DependentUpon>Compare.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
