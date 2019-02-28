@@ -141,6 +141,7 @@
     <Compile Include="DBContext\Domains.cs" />
     <Compile Include="DBContext\Products.cs" />
     <Compile Include="DBContext\ProductsDataAccess.cs" />
+    <Compile Include="DBContext\ProxyAddressDataAcces.cs" />
     <Compile Include="JsonConfig\ConfigInfo.cs" />
     <Compile Include="JsonConfig\Request.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

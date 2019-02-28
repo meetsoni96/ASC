@@ -103,7 +103,10 @@ namespace ASC1._0.Utility.HttpRequest
             Uri siteUri = new Uri(ActualUrl);
             string html = string.Empty;
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Ssl3 | System.Net.SecurityProtocolType.Tls | System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
+            WebProxy wp = new WebProxy("104.218.56.0", 60000);
+            wp.Credentials = new NetworkCredential("markettrack", "1dMfyW57jS");
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(siteUri);
+            request.Proxy = wp;
             request.Method = "GET";
             request.Referer = cf.request.referrer;
             request.Accept = cf.request.accept;

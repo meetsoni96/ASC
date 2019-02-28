@@ -1,15 +1,18 @@
 ﻿using ASC1._0.BotProperties;
 using ASC1._0.BotStructure;
 using ASC1._0.BotTemplates;
+using ASC1._0.DBContext;
 using ASC1._0.JsonConfig;
 using Newtonsoft.Json;
 using System;
+using System.Data;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.SqlClient;
 
 namespace ASC1._0
 {
@@ -29,13 +32,17 @@ namespace ASC1._0
 
             // ConfigInfo obj = JsonConvert.DeserializeObject<ConfigInfo>(contents);
             Dictionary<string, string> d;
+            List<string> lstProxy = new List<string>();
+            ProxyAddressDataAcces proxy = new ProxyAddressDataAcces();
+            DataTable dt = proxy.getAllProxyAddress();
+            foreach (DataRow dr in dt.Rows)
+            {
+                lstProxy.Add(dr[0].ToString());
+            }
+
             Consiglioskitchenware c = new Consiglioskitchenware();
             List<CategoryResult> sr = c.GetCategoryLinks("test");
-
-            // GridView1.DataSource = sr;
-
-            //GridView1.DataBind();
-
+           
 
             List<ProductResults> finalList = new List<ProductResults>();  //getProductList URLS
             foreach (var item in sr)
