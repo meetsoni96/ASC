@@ -3,14 +3,16 @@
   "domain" : "www.consiglioskitchenware.com",
   "homepage" : "https://www.consiglioskitchenware.com/",
   "category_list": [
-    "//nav[@class="site-navigation"]//li[contains(@class,"navmenu-item-parent")]//a[contains(@class,"navmenu-link")]"
+    "//nav[@class='site-navigation']//li[contains(@class,'navmenu-item-parent')]//a[contains(@class,'navmenu-link')]",
+    "//nav[@class='site-navigation']//li[contains(@class,'navmenu-item-parent')]//a[contains(@class,'navmenu-link')]"
     ],
   "response_timeout ": 10,
   "request": {
     "headers": "",
     "cookie": "",
-    "referrer": "",
-    "method" : "post",
+    "referrer": "www.consiglioskitchenware.com",
+    "method": "post",
+    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
     "data" : "search_term=shirt"
   },
   "thread_count": 3,
