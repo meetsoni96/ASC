@@ -11,6 +11,8 @@ using System.Xml.Linq;
 using ASC1._0.Utility.HttpRequest;
 using ASC1._0.Utility;
 using DevComponents.Html;
+using System.Data;
+using ASC1._0.DBContext;
 
 namespace ASC1._0.BotTemplates
 {
@@ -61,7 +63,8 @@ namespace ASC1._0.BotTemplates
             XNamespace xns = xdoc.Root.Name.Namespace;
 
             string categoryLinks = configObj.category_list[0];
-
+            CategoriesInDomain category = new CategoriesInDomain();
+            CategoriesInDomainDataAccess catDAC = new CategoriesInDomainDataAccess();
 
             var getCategoryInfo = xdoc.Root.GetDescendant(xns, "nav", "class", "site-navigation").GetDescendants(xns, "li", "class", "navmenu-item-parent");
 
@@ -75,7 +78,14 @@ namespace ASC1._0.BotTemplates
                 {
                     string link = x.GetAttribute("href").GetTrim();
                     string title = x.GetValue().GetTrim();
-                    sr.Add(new CategoryResult(link, title));
+                    category.CategoryName = title;
+                    category.CategoryUrl = link;
+                    category.DomainID = 1;
+                    DataTable dt = new DataTable();
+                    dt = catDAC.AddCategoriesInDomain(category);
+                    int categoryID = int.Parse(dt.Rows[0][0].ToString());
+                    sr.Add(new CategoryResult(link, title, categoryID));
+                   
                 }
             }
 
@@ -87,7 +97,7 @@ namespace ASC1._0.BotTemplates
             throw new NotImplementedException();
         }
 
-        public override List<ProductResults> GetProductListingUrl(string url)
+        public override List<ProductResults> GetProductListingUrl(string url,int categoryID)
         {
             string actualURL = string.Empty;
             string domain = configObj.domain;
@@ -116,12 +126,12 @@ namespace ASC1._0.BotTemplates
                 string hrefValue = node.Attributes["href"].Value;
                 string prodTitle = node.InnerText;
 
-                pr.Add(new ProductResults(hrefValue, prodTitle));
+                pr.Add(new ProductResults(hrefValue, prodTitle,categoryID));
             }
 
             if (IsNextPage)
             {
-                pr = GetProductListingUrl(nextPageLink);
+                pr = GetProductListingUrl(nextPageLink,categoryID);
             }
             return pr;
 
@@ -132,7 +142,7 @@ namespace ASC1._0.BotTemplates
         //    List<ProductResults>  pr =GetProductListingUrl(nextPageLink);
         //}
 
-        public override ProductInfo GetProductDetails(string url)
+        public override ProductInfo GetProductDetails(string url,int categoryID)
         {
             string actualURL = string.Empty;
             string domain = configObj.domain;
@@ -168,7 +178,22 @@ namespace ASC1._0.BotTemplates
             string currency = string.Empty;
             decimal? finalStrikePrice = ASC1._0.Utility.HelperClass.PriceParser.ParsePrice(strikePrice, DefaultCurrencyType, DefaulCurrenncySymbol, Culture, out currency);
             decimal? finalPrice = ASC1._0.Utility.HelperClass.PriceParser.ParsePrice(price, DefaultCurrencyType, DefaulCurrenncySymbol, Culture, out currency);
-            return new ProductInfo(1, 1, actualURL, productTitle, finalPrice, finalStrikePrice, sku, mpn, availibilty);
+
+            //save productDetails
+            ProductInfo product = new ProductInfo();
+            product.DomainID = 1;
+            product.CategoryID = categoryID;
+            product.Title = productTitle;
+            product.MPN = mpn;
+            product.Price = finalPrice;
+            product.ProductUrl = actualURL;
+            product.StrikeThroughPrice = finalStrikePrice;
+            product.SKU = sku;
+            product.ImageUrl = imageUrl;
+            ProductsDataAccess productDAC = new ProductsDataAccess();
+            productDAC.SaveProductsInDomain(product);
+
+            return new ProductInfo(2, categoryID, actualURL, productTitle, finalPrice, finalStrikePrice, sku, mpn, availibilty);
         }
     }
 }
