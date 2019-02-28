@@ -13,7 +13,7 @@ namespace ASC1._0.DBContext
         DBManager objDBManager = new DBManager();
         DataTable dt = new DataTable();
         string query = string.Empty;
-        public void CategoriesInDomain(CategoriesInDomain cat)
+        public void AddCategoriesInDomain(CategoriesInDomain cat)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -40,6 +40,16 @@ namespace ASC1._0.DBContext
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.CommandText = "dbo.GetCategoriesByDomainID";
             sqlCommand.Parameters.AddWithValue("@Domain_ID", DomainID);           
+
+            return objDBManager.ExecuteDataTable(sqlCommand);
+        }
+
+        public DataTable CategoryExists(string URL)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.CommandText = "dbo.GetCategoriesByDomainID";
+            sqlCommand.Parameters.AddWithValue("@Category_Url", URL);
 
             return objDBManager.ExecuteDataTable(sqlCommand);
         }
