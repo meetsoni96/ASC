@@ -42,7 +42,7 @@ namespace ASC1._0
             {
                 //List<ProductResults> pr = c.GetProductListingUrl(item.link);
                // string nextpageurl = "";
-                foreach (var i in c.GetProductListingUrl(item.link))
+                foreach (var i in c.GetProductListingUrl(item.link,item.categoryID))
                 {
                     finalList.Add(i);
                 }
@@ -61,7 +61,7 @@ namespace ASC1._0
 
             foreach(var product in finalList)
             {
-                ProductInfo p = c.GetProductDetails(product.ProductLink);
+                ProductInfo p = c.GetProductDetails(product.ProductLink,product.CategoryID);
                 listofProduct.Add(p);
             }
 

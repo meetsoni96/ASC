@@ -13,11 +13,13 @@ namespace ASC1._0.BotStructure
 
         [DisplayName("Product Title")]
         public string ProductTitle { get; set; }
+        public int CategoryID { get; set; }
 
-        public ProductResults(string prodLink,string ProdTitle)
+        public ProductResults(string prodLink,string ProdTitle, int CategoryID)
         {
             this.ProductLink = prodLink;
             this.ProductTitle = ProdTitle;
+            this.CategoryID = CategoryID;
         }
 
 

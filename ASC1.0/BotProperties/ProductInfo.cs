@@ -57,6 +57,7 @@ namespace ASC1._0.BotProperties
         public int DomainID { get; set; }
         public int CategoryID { get; set; }
         public string ProductUrl { get; set; }
+        public string ImageUrl { get; set; }
         public string Title { get; set; }
         public decimal? Price { get; set; }
         public decimal? StrikeThroughPrice { get; set; }
@@ -84,6 +85,11 @@ namespace ASC1._0.BotProperties
 
 
             this.Availability = avail;
+        }
+
+        public ProductInfo()
+        {
+            
         }
     }
 

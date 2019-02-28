@@ -11,10 +11,14 @@ namespace ASC1._0.BotStructure
 
         public string title { get; set; }
 
-        public CategoryResult(string link,string title)
+        public int categoryID { get; set; }
+
+        public CategoryResult(string link,string title,int categoryID)
         {
             this.link = link;
             this.title = title;
+            this.categoryID = categoryID;
+
         }
     }
 }

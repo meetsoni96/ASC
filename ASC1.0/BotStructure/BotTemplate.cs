@@ -37,7 +37,7 @@ namespace ASC1._0.BotStructure
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-       public abstract List<ProductResults> GetProductListingUrl(string url);
+       public abstract List<ProductResults> GetProductListingUrl(string url, int CategoryID);
 
 
 
@@ -45,7 +45,7 @@ namespace ASC1._0.BotStructure
         /// We get product info for specific products(valid)
         /// </summary>
         /// <returns></returns>
-        public abstract ProductInfo GetProductDetails(string url);
+        public abstract ProductInfo GetProductDetails(string url, int categoryID);
 
         public virtual BotCommon BotCommon { get { return null; } }
 
