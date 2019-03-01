@@ -134,5 +134,45 @@ namespace ASC1._0.Utility.HttpRequest
             return hdoc;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="cf"></param>
+        /// <returns></returns>
+        public static HtmlAgilityPack.HtmlDocument GetHtmlResponse(string url, JsonConfig.ConfigInfo cf)
+        {
+            string ActualUrl = string.Empty;
+            if (url.Contains("http"))
+            {
+                ActualUrl = url;
+            }
+            else
+            {
+                ActualUrl = "https://" + url;
+            }
+
+            Uri siteUri = new Uri(ActualUrl);
+            string html = string.Empty;
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Ssl3 | System.Net.SecurityProtocolType.Tls | System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(siteUri);            
+            request.Method = "GET";
+            request.Referer = cf.request.referrer;
+            request.Accept = cf.request.accept;
+            request.UserAgent = "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36";
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                html = reader.ReadToEnd();
+            }
+
+
+            HtmlAgilityPack.HtmlDocument hdoc = new HtmlAgilityPack.HtmlDocument();
+            hdoc.LoadHtml(html);
+
+            return hdoc;
+        }
+
     }
 }

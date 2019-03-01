@@ -1,4 +1,6 @@
-﻿using ASC1._0.DBContext;
+﻿using ASC1._0.BotProperties;
+using ASC1._0.BotTemplates;
+using ASC1._0.DBContext;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -40,14 +42,28 @@ namespace ASC1._0
         {
             string id = ddl_MPNTitle.SelectedValue.ToString();
             DataTable dt = new DataTable();
-            string text = Regex.Replace(txt_getMPNOrTitle.Text, @"[^0-9a-zA-Z]+", "").ToLower();
+            // HD8967/47
+            //string text = Regex.Replace(txt_getMPNOrTitle.Text, @"[^0-9a-zA-Z]+", "").ToLower();
+            string text = txt_getMPNOrTitle.Text;
             ProductsDataAccess pda = new ProductsDataAccess();
             dt = pda.GetProductsByMPNOrTitle(id, text);
+            string domain1_PrdouctUrl = string.Empty;
+            string domain2_ProductUrl = string.Empty;
+
             if (dt.Rows.Count >= 2)
             {
-                string product_url1 = dt.Rows[0]["Product_Url"].ToString();
-                string product_url2 = dt.Rows[1]["Product_Url"].ToString();
+                domain1_PrdouctUrl = dt.Rows[0]["Product_Url"].ToString();  //domain1
+                domain2_ProductUrl = dt.Rows[1]["Product_Url"].ToString();  //domain2
             }
+
+            Consiglioskitchenware cObj = new Consiglioskitchenware(); //for domain1
+            AnthonysEspresso aObj = new AnthonysEspresso(); //for domain2
+
+            ProductInfo productDomain1 = cObj.GetProductDetails(domain1_PrdouctUrl);   //get productDetails for domain1
+
+            ProductInfo productDomain2 = aObj.GetProductDetails(domain2_ProductUrl);   //get prdouctDetails for domain2
+
+
         }
     }
 }

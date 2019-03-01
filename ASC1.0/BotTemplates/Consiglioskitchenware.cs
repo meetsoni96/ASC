@@ -250,6 +250,78 @@ namespace ASC1._0.BotTemplates
 
         }
 
+        public override ProductInfo GetProductDetails(string url)
+        {
+            string actualURL = string.Empty;
+            string domain = configObj.domain;
+            if (url.Contains("http") || url.Contains("www"))
+            {
+                actualURL = url;
+            }
+            else
+            {
+                actualURL = domain + url;
+            }
+            HtmlAgilityPack.HtmlDocument hdoc = CommonRequest.GetHtmlResponse(actualURL, configObj);
+
+
+            string imageUrl = string.Empty;
+            string productTitle = string.Empty;
+            string brand = string.Empty;
+            string sku = string.Empty;
+            string weight = string.Empty;
+            string price = string.Empty;
+            string strikePrice = string.Empty;
+
+
+            if (hdoc.DocumentNode.SelectSingleNode("//meta[@property='og:image:secure_url']") != null)
+            {
+                imageUrl = hdoc.DocumentNode.SelectSingleNode("//meta[@property='og:image:secure_url']").Attributes["content"].Value;
+            }
+
+            if (hdoc.DocumentNode.SelectSingleNode("//h1[@class='product-title']") != null)
+            {
+                productTitle = hdoc.DocumentNode.SelectSingleNode("//h1[@class='product-title']").InnerText.GetTrim();
+            }
+
+            if (hdoc.DocumentNode.SelectSingleNode("//div[@class='product-vendor1']") != null)
+            {
+                brand = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-vendor1']").InnerText.GetTrim();
+            }
+
+            if (hdoc.DocumentNode.SelectSingleNode("//div[@class='product-sku']") != null)
+            {
+                sku = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-sku']").InnerText.GetTrim();
+            }
+
+            if (hdoc.DocumentNode.SelectSingleNode("//div[@class='product-weight']") != null)
+            {
+                weight = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-weight']").InnerText.GetTrim();
+            }
+
+            if (hdoc.DocumentNode.SelectSingleNode("//div[@class='price--compare-at visible']//span[@class='money']") != null)
+            {
+                strikePrice = hdoc.DocumentNode.SelectSingleNode("//div[@class='price--compare-at visible']//span[@class='money']").InnerText.GetTrim();
+            }
+
+            if (hdoc.DocumentNode.SelectSingleNode("//div[@class='price--main']//span[@class='money']") != null)
+            {
+                price = hdoc.DocumentNode.SelectSingleNode("//div[@class='price--main']//span[@class='money']").InnerText.GetTrim();
+
+            }
+
+            string mpn = string.Empty;
+
+            bool availibilty = true;
+            string currency = string.Empty;
+            decimal? finalStrikePrice = ASC1._0.Utility.HelperClass.PriceParser.ParsePrice(strikePrice, DefaultCurrencyType, DefaulCurrenncySymbol, Culture, out currency);
+
+            decimal? finalPrice = ASC1._0.Utility.HelperClass.PriceParser.ParsePrice(price, DefaultCurrencyType, DefaulCurrenncySymbol, Culture, out currency);
+
+            
+            return new ProductInfo(1, 1, actualURL, productTitle, finalPrice, finalStrikePrice, sku, mpn, availibilty, string.Empty, string.Empty);
+        }
+
     }
 
 

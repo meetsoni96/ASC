@@ -47,8 +47,8 @@
                             <tr>
                                 <th style="text-align:right;">
                                     <asp:DropDownList ID="ddl_MPNTitle" runat="server" CssClass="form-control btn btn-default btn-sm" Width="171px">
-                                        <asp:ListItem Value="MPN">Search By MPN</asp:ListItem>
-                                        <asp:ListItem Value="Title">Search By Title</asp:ListItem>
+                                        <asp:ListItem Value="0">Search By MPN</asp:ListItem>
+                                        <asp:ListItem Value="1">Search By Title</asp:ListItem>
                                     </asp:DropDownList>
                                 </th>
                                 <th style="text-align:left;">
@@ -60,7 +60,7 @@
                                     <asp:Button ID="btn_GetMPNOrTitle" runat="server" CssClass="form-control btn btn-primary" OnClick="Button1_Click" Text="Product Assortment" BackColor="#18494F" ForeColor="White" style="width: 174px; float: right;border-radius: 15px;" />
                                 </th>
                                 <th style="text-align:left;">
-                                    <asp:Button ID="btn_getRTPrice" runat="server" CssClass="form-control btn btn-primary" Text="Get Real Time Price" BackColor="#18494F" ForeColor="White" style="width: 174px; float: left; border-radius: 15px;" />
+                                    <asp:Button ID="btn_getRTPrice" runat="server" CssClass="form-control btn btn-primary" Text="Get Real Time Price" BackColor="#18494F" ForeColor="White" style="width: 174px; float: left; border-radius: 15px;" OnClick="btn_getRTPrice_Click" />
                                 </th>
                             </tr>
                         </thead>

@@ -47,6 +47,10 @@ namespace ASC1._0.BotStructure
         /// <returns></returns>
         public abstract ProductInfo GetProductDetails(string url, int categoryID,string ip, int  port);
 
+        /// <summary>
+        /// We get product info for specific products(valid)
+        /// </summary>
+        public abstract ProductInfo GetProductDetails(string url);
         public virtual BotCommon BotCommon { get { return null; } }
 
     }
