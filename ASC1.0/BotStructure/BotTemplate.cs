@@ -19,7 +19,7 @@ namespace ASC1._0.BotStructure
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-       public abstract List<CategoryResult> GetCategoryLinks(string url);
+        public abstract List<CategoryResult> GetCategoryLinks(string url,string ip, int port);
 
 
        /// <summary>
@@ -37,7 +37,7 @@ namespace ASC1._0.BotStructure
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-       public abstract List<ProductResults> GetProductListingUrl(string url, int CategoryID);
+       public abstract List<ProductResults> GetProductListingUrl(string url, int CategoryID, string ip, int  port);
 
 
 
@@ -45,7 +45,7 @@ namespace ASC1._0.BotStructure
         /// We get product info for specific products(valid)
         /// </summary>
         /// <returns></returns>
-        public abstract ProductInfo GetProductDetails(string url, int categoryID);
+        public abstract ProductInfo GetProductDetails(string url, int categoryID,string ip, int  port);
 
         public virtual BotCommon BotCommon { get { return null; } }
 

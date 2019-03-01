@@ -13,6 +13,7 @@ using ASC1._0.Utility.HttpRequest;
 using ASC1._0.Utility;
 using DevComponents.Html;
 using ASC1._0.DBContext;
+using System.Text.RegularExpressions;
 
 namespace ASC1._0.BotTemplates
 {
@@ -46,6 +47,7 @@ namespace ASC1._0.BotTemplates
         List<ProductResults> pr = new List<ProductResults>();
         static string configContent = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"\DomainTemplateConfigs\consiglioskitchenware.json");
         ConfigInfo configObj = ReturnConfigs();
+        
         /// <summary>
         /// Returns config details
         /// </summary>
@@ -55,7 +57,7 @@ namespace ASC1._0.BotTemplates
             ConfigInfo obj = JsonConvert.DeserializeObject<ConfigInfo>(configContent);
             return obj;
         }
-        public override List<CategoryResult> GetCategoryLinks(string url)
+        public override List<CategoryResult> GetCategoryLinks(string url, string ip, int port)
         {
             //Get xdoc from URL
             XDocument xdoc = CommonRequest.GetXmlResponse(configObj.homepage, configObj);
@@ -109,7 +111,7 @@ namespace ASC1._0.BotTemplates
             throw new NotImplementedException();
         }
 
-        public override List<ProductResults> GetProductListingUrl(string url, int categoryID)
+        public override List<ProductResults> GetProductListingUrl(string url, int categoryID, string ip, int port)
         {
             string actualURL = string.Empty;
             string domain = configObj.domain;
@@ -122,7 +124,7 @@ namespace ASC1._0.BotTemplates
                 actualURL = domain + url;
             }
 
-            HtmlAgilityPack.HtmlDocument hdoc = CommonRequest.GetHtmlResponse(actualURL, configObj);
+            HtmlAgilityPack.HtmlDocument hdoc = CommonRequest.GetHtmlResponse(actualURL, configObj, ip, port);
 
             IEnumerable<HtmlAgilityPack.HtmlNode> hNode = hdoc.DocumentNode.SelectNodes("//div[@class='productgrid--items']//div[@class='productitem']//h2/a");
 
@@ -150,7 +152,7 @@ namespace ASC1._0.BotTemplates
 
             if (IsNextPage)
             {
-                pr = GetProductListingUrl(nextPageLink,categoryID);
+                pr = GetProductListingUrl(nextPageLink,categoryID,ip,port);
             }
             return pr;
 
@@ -161,7 +163,7 @@ namespace ASC1._0.BotTemplates
         //    List<ProductResults>  pr =GetProductListingUrl(nextPageLink);
         //}
 
-        public override ProductInfo GetProductDetails(string url, int categoryID)
+        public override ProductInfo GetProductDetails(string url, int categoryID,string ip, int port)
         {
             string actualURL = string.Empty;
             string domain = configObj.domain;
@@ -173,7 +175,7 @@ namespace ASC1._0.BotTemplates
             {
                 actualURL = domain + url;
             }
-            HtmlAgilityPack.HtmlDocument hdoc = CommonRequest.GetHtmlResponse(actualURL, configObj);
+            HtmlAgilityPack.HtmlDocument hdoc = CommonRequest.GetHtmlResponse(actualURL, configObj,ip,port);
 
 
             string imageUrl = string.Empty;
@@ -240,6 +242,8 @@ namespace ASC1._0.BotTemplates
             product.StrikeThroughPrice = finalStrikePrice;
             product.SKU = sku;
             product.ImageUrl = imageUrl;
+            product.Match_Title = Regex.Replace(productTitle, @"[^^0-9a-zA-Z]+", ",");
+            product.Match_MPN = Regex.Replace(mpn, @"[^^0-9a-zA-Z]+", ",");
             ProductsDataAccess productDAC = new ProductsDataAccess();
             productDAC.SaveProductsInDomain(product);
 

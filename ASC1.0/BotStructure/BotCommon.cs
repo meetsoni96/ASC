@@ -21,6 +21,7 @@ namespace ASC1._0.BotStructure
         public bool NoProgma { get; set; }
         public bool IsSingleton { get; set; }
         public int LoginTimeout { get; set; }
+        public List<string> lstProxy { get; set; }
 
         public CookieContainer Cookies { get; set; } // not passed by WCF
         public string IgnoreHttpErrorCode { get; set; }     // the ignored error codes are separated by ;

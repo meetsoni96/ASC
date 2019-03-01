@@ -26,5 +26,8 @@ namespace ASC1._0.JsonConfig
 
         [JsonProperty("data")]
         public string data { get; set; }
+
+        [JsonProperty("ip_list")]
+        public List<string> ip_list { get; set; }
     }
 }
