@@ -64,6 +64,10 @@ namespace ASC1._0.BotProperties
         public string SKU { get; set; }
         public string MPN { get; set; }
         public bool Availability { get; set; }
+        public string Match_Title { get; set; }
+        public string Match_MPN { get; set; }
+
+
 
         public ProductInfo(int domainId,int categoryId,string productUrl,string title,decimal? price, decimal? strikeprice,string sku,string mpn,bool avail)
         {
