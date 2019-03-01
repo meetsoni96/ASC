@@ -197,8 +197,7 @@ namespace ASC1._0.BotTemplates
             if(hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//span[contains(@class,'price-new')]")!=null)
             {
                  price = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//span[contains(@class,'price-new')]").InnerText.GetTrim();
-            }
-            
+            }            
          
             string mpn = string.Empty;
 

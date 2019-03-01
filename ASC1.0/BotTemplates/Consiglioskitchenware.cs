@@ -223,7 +223,6 @@ namespace ASC1._0.BotTemplates
 
             }
 
-
             string mpn = string.Empty;
 
             bool availibilty = true;
