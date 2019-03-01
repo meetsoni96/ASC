@@ -264,5 +264,5 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE PROCEDURE [dbo].[GetProxyAddress]
 AS
-SELECT * FROM ProxyAddress
+	select top 11 * from ProxyAddress where IPGroup=1
 GO

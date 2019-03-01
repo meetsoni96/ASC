@@ -13,7 +13,8 @@
     "referrer": "www.consiglioskitchenware.com",
     "method": "post",
     "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-    "data" : "search_term=shirt"
+    "data": "search_term=shirt",
+    "ip_list": [ ]
   },
   "thread_count": 3,
   "site_map" : "",
