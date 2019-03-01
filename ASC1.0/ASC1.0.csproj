@@ -102,6 +102,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="GUI.aspx" />
+    <Content Include="Images\CompanyLogo.png" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -145,6 +147,13 @@
     <Compile Include="DBContext\Products.cs" />
     <Compile Include="DBContext\ProductsDataAccess.cs" />
     <Compile Include="DBContext\ProxyAddressDataAcces.cs" />
+    <Compile Include="GUI.aspx.cs">
+      <DependentUpon>GUI.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI.aspx.designer.cs">
+      <DependentUpon>GUI.aspx</DependentUpon>
+    </Compile>
     <Compile Include="JsonConfig\ConfigInfo.cs" />
     <Compile Include="JsonConfig\Request.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
