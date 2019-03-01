@@ -246,7 +246,7 @@ namespace ASC1._0.BotTemplates
             ProductsDataAccess productDAC = new ProductsDataAccess();
             productDAC.SaveProductsInDomain(product);
 
-            return new ProductInfo(1, categoryID, actualURL, productTitle, finalPrice, finalStrikePrice, sku, mpn, availibilty,string.Empty,string.Empty);
+            return new ProductInfo(1, categoryID, actualURL, productTitle, finalPrice, finalStrikePrice, sku, mpn, availibilty,string.Empty,string.Empty,imageUrl);
 
         }
 
@@ -319,7 +319,7 @@ namespace ASC1._0.BotTemplates
             decimal? finalPrice = ASC1._0.Utility.HelperClass.PriceParser.ParsePrice(price, DefaultCurrencyType, DefaulCurrenncySymbol, Culture, out currency);
 
             
-            return new ProductInfo(1, 1, actualURL, productTitle, finalPrice, finalStrikePrice, sku, mpn, availibilty, string.Empty, string.Empty);
+            return new ProductInfo(1, 1, actualURL, productTitle, finalPrice, finalStrikePrice, sku, mpn, availibilty, string.Empty, string.Empty,imageUrl);
         }
 
     }

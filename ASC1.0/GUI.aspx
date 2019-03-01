@@ -70,7 +70,7 @@
                 </div>
             </div>
         </div>
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" Width="1300px">
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" Width="1300px" HorizontalAlign="Center">
             <Columns>
                 <asp:TemplateField ControlStyle-Width="300px">
                     <HeaderTemplate>Title</HeaderTemplate>
@@ -99,16 +99,23 @@
                 <asp:TemplateField ControlStyle-Width="550px">
                     <HeaderTemplate>Product URL</HeaderTemplate>
                     <ItemTemplate>
-                        <asp:Label ID="lbl5" runat="server" Text='<%#Bind("ProductUrl")%>'></asp:Label>
+                        <asp:HyperLink ID="link" runat="server" Text='<%#Bind("ProductUrl")%>' NavigateUrl='<%#Bind("ProductUrl")%>' Target="_blank"></asp:HyperLink>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField ControlStyle-Width="550px">
+                    <HeaderTemplate>Image</HeaderTemplate>
+                    <ItemTemplate>
+                        <%--<asp:Label ID="img" runat="server" Text='<%#Bind("ImageUrl")%>'>'></asp:Label>--%>
+                        <asp:Image  runat="server" ID="img2" ImageUrl='<%#Bind("ImageUrl")%>' />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
         <br />
         <br />
-        <asp:GridView ID="GridView2" runat="server"  AutoGenerateColumns="False" Width="1300px" HeaderStyle-Width="300px">
+        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" Width="1300px" HorizontalAlign="Center">
             <Columns>
-                <asp:TemplateField  ControlStyle-Width="300px">
+                <asp:TemplateField ControlStyle-Width="300px">
                     <HeaderTemplate>Title</HeaderTemplate>
                     <ItemTemplate>
                         <asp:Label ID="lbl1" runat="server" Text='<%#Bind("Title")%>'></asp:Label>
@@ -136,7 +143,14 @@
                 <asp:TemplateField ControlStyle-Width="550px">
                     <HeaderTemplate>Product URL</HeaderTemplate>
                     <ItemTemplate>
-                        <asp:Label ID="lbl5" runat="server" Text='<%#Bind("ProductUrl")%>'></asp:Label>
+                        <asp:HyperLink ID="link" runat="server" Text='<%#Bind("ProductUrl")%>' NavigateUrl='<%#Bind("ProductUrl")%>' Target="_blank"></asp:HyperLink>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField ControlStyle-Width="550px">
+                    <HeaderTemplate>Image</HeaderTemplate>
+                    <ItemTemplate>
+                        <%--<asp:Label ID="img" runat="server" Text='<%#Bind("ImageUrl")%>'>'></asp:Label>--%>
+                        <asp:Image  runat="server" ID="img1" ImageUrl='<%#Bind("ImageUrl")%>' />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

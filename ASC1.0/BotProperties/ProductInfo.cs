@@ -69,7 +69,7 @@ namespace ASC1._0.BotProperties
 
 
 
-        public ProductInfo(int domainId,int categoryId,string productUrl,string title,decimal? price, decimal? strikeprice,string sku,string mpn,bool avail,string matchTitle,string matchMpn)
+        public ProductInfo(int domainId,int categoryId,string productUrl,string title,decimal? price, decimal? strikeprice,string sku,string mpn,bool avail,string matchTitle,string matchMpn,string ImageUrl)
         {
             this.DomainID = domainId;
 
@@ -93,6 +93,8 @@ namespace ASC1._0.BotProperties
             this.Match_Title = matchTitle;
 
             this.Match_MPN = matchMpn;
+
+            this.ImageUrl = ImageUrl;
         }
 
         public ProductInfo()
