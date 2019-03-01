@@ -60,10 +60,25 @@ namespace ASC1._0
             AnthonysEspresso aObj = new AnthonysEspresso(); //for domain2
 
             ProductInfo productDomain1 = cObj.GetProductDetails(domain1_PrdouctUrl);   //get productDetails for domain1
+            productDomain1.MPN = txt_getMPNOrTitle.Text;
 
             ProductInfo productDomain2 = aObj.GetProductDetails(domain2_ProductUrl);   //get prdouctDetails for domain2
+            productDomain2.MPN = txt_getMPNOrTitle.Text;
+
+            List<ProductInfo> p1 = new List<ProductInfo>();
+            List<ProductInfo> p2 = new List<ProductInfo>();
+            p1.Add(productDomain1);
+            p2.Add(productDomain2);
+
+            GridView1.DataSource = p1;
+            GridView1.DataBind();
+
+            GridView2.DataSource = p2;
+            GridView2.DataBind();
 
 
         }
+
+
     }
 }
