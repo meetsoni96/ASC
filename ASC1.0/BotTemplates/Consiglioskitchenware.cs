@@ -68,28 +68,40 @@ namespace ASC1._0.BotTemplates
             string categoryLinks = configObj.category_list[0];
 
 
-            var getCategoryInfo = xdoc.Root.GetDescendant(xns, "nav", "class", "site-navigation").GetDescendants(xns, "li", "class", "navmenu-item-parent");
-            //ictionary<string, string> a = new Dictionary<string, string>();
+            var getCategoryInfo = xdoc.Root.GetDescendant(xns, "nav", "class", "site-navigation").GetDescendants(xns, "li", "class", "navmenu-item-parent");           
             List<CategoryResult> sr = new List<CategoryResult>();
-            foreach (XElement xelement in getCategoryInfo)
+            if(getCategoryInfo!=null)
             {
-                List<XElement> xelements = xelement.GetDescendants(xns, "a", "class", "navmenu-link");
-                foreach (XElement x in xelements)
+                foreach (XElement xelement in getCategoryInfo)
                 {
-                    
-                    string link = x.GetAttribute("href").GetTrim();
-                    string title = x.GetValue().GetTrim();
-                    
-                    
-                    category.CategoryName = title;
-                    category.CategoryUrl = link;
-                    category.DomainID = 1;
-                    DataTable dt = new DataTable();
-                    dt = catDAC.AddCategoriesInDomain(category);
-                    int categoryID = int.Parse(dt.Rows[0][0].ToString());
-                    sr.Add(new CategoryResult(link, title, categoryID));
+                    List<XElement> xelements = xelement.GetDescendants(xns, "a", "class", "navmenu-link");
+                    foreach (XElement x in xelements)
+                    {
+
+                        string title = string.Empty;
+                        string link = string.Empty;
+                        if (x.GetAttribute("href") != null)
+                        {
+                            link= x.GetAttribute("href").GetTrim();
+                        }
+                        if(x.GetValue()!=null)
+                        {
+                            title = x.GetValue().GetTrim();
+                        }    
+                       
+
+
+                        category.CategoryName = title;
+                        category.CategoryUrl = link;
+                        category.DomainID = 1;
+                        DataTable dt = new DataTable();
+                        dt = catDAC.AddCategoriesInDomain(category);
+                        int categoryID = int.Parse(dt.Rows[0][0].ToString());
+                        sr.Add(new CategoryResult(link, title, categoryID));
+                    }
                 }
             }
+            
 
             return sr;
         }
@@ -117,22 +129,25 @@ namespace ASC1._0.BotTemplates
             IEnumerable<HtmlAgilityPack.HtmlNode> hNode = hdoc.DocumentNode.SelectNodes("//div[@class='productgrid--items']//div[@class='productitem']//h2/a");
 
             string nextPageLink = string.Empty;
+
+
             if (hdoc.DocumentNode.SelectSingleNode("//li[@class='pagination--next']/a") != null && hdoc.DocumentNode.SelectSingleNode("//li[@class='pagination--next']/a").Attributes["href"] != null)
             {
                 nextPageLink = hdoc.DocumentNode.SelectSingleNode("//li[@class='pagination--next']/a").Attributes["href"].Value;
             }
 
-
-
-
-
             bool IsNextPage = !string.IsNullOrWhiteSpace(nextPageLink) ? true : false;
-            foreach (var node in hNode)
-            {
-                string hrefValue = node.Attributes["href"].Value;
-                string prodTitle = node.InnerText;
 
-                pr.Add(new ProductResults(hrefValue, prodTitle,categoryID));
+            if(hNode!=null)
+            {
+                foreach (var node in hNode)
+                {
+                    string hrefValue = node.Attributes["href"].Value;
+                    string prodTitle = node.InnerText;
+
+                    pr.Add(new ProductResults(hrefValue, prodTitle, categoryID));
+                }
+
             }
 
             if (IsNextPage)
@@ -163,20 +178,51 @@ namespace ASC1._0.BotTemplates
             HtmlAgilityPack.HtmlDocument hdoc = CommonRequest.GetHtmlResponse(actualURL, configObj,ip,port);
 
 
-            //Image URL
-            //meta property="og:image:secure_url" content=
-            string imageUrl = hdoc.DocumentNode.SelectSingleNode("//meta[@property='og:image:secure_url']").Attributes["content"].Value;
+            string imageUrl = string.Empty;
+            string productTitle = string.Empty;
+            string brand = string.Empty;
+            string sku = string.Empty;
+            string weight = string.Empty;
+            string price = string.Empty;
+            string strikePrice = string.Empty;
 
-            string productTitle = hdoc.DocumentNode.SelectSingleNode("//h1[@class='product-title']").InnerText.GetTrim();
 
-            string brand = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-vendor1']").InnerText.GetTrim();
-            string sku = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-sku']").InnerText.GetTrim();
+            if (hdoc.DocumentNode.SelectSingleNode("//meta[@property='og:image:secure_url']")!=null)
+            {
+                imageUrl = hdoc.DocumentNode.SelectSingleNode("//meta[@property='og:image:secure_url']").Attributes["content"].Value;
+            }
 
-            string weight = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-weight']").InnerText.GetTrim();
+            if (hdoc.DocumentNode.SelectSingleNode("//h1[@class='product-title']")!=null)
+            {
+                productTitle = hdoc.DocumentNode.SelectSingleNode("//h1[@class='product-title']").InnerText.GetTrim();
+            }
 
-            string strikePrice = hdoc.DocumentNode.SelectSingleNode("//div[@class='price--compare-at visible']//span[@class='money']").InnerText.GetTrim();
+            if(hdoc.DocumentNode.SelectSingleNode("//div[@class='product-vendor1']")!=null)
+            {
+                brand = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-vendor1']").InnerText.GetTrim();
+            }
 
-            string price = hdoc.DocumentNode.SelectSingleNode("//div[@class='price--main']//span[@class='money']").InnerText.GetTrim();
+            if(hdoc.DocumentNode.SelectSingleNode("//div[@class='product-sku']")!=null)
+            {
+                 sku = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-sku']").InnerText.GetTrim();
+            }
+
+            if (hdoc.DocumentNode.SelectSingleNode("//div[@class='product-weight']")!=null)
+            {
+                 weight = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-weight']").InnerText.GetTrim();
+            }
+
+            if (hdoc.DocumentNode.SelectSingleNode("//div[@class='price--compare-at visible']//span[@class='money']")!=null)
+            {
+                strikePrice = hdoc.DocumentNode.SelectSingleNode("//div[@class='price--compare-at visible']//span[@class='money']").InnerText.GetTrim();
+            }
+
+            if (hdoc.DocumentNode.SelectSingleNode("//div[@class='price--main']//span[@class='money']")!=null)
+            {
+                 price = hdoc.DocumentNode.SelectSingleNode("//div[@class='price--main']//span[@class='money']").InnerText.GetTrim();
+
+            }
+
 
             string mpn = string.Empty;
 
@@ -203,12 +249,7 @@ namespace ASC1._0.BotTemplates
 
             return new ProductInfo(1, categoryID, actualURL, productTitle, finalPrice, finalStrikePrice, sku, mpn, availibilty);
 
-
         }
-
-
-
-
 
     }
 
