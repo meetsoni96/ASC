@@ -16,5 +16,9 @@ namespace ASC1._0.DBContext
         public string SKU { get; set; }
         public string MPN { get; set; }
         public bool Availability { get; set; }
+
+        public string Match_Title { get; set; }
+
+        public string Match_MPN { get; set; }
     }
 }

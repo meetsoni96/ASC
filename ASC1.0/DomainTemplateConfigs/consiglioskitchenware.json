@@ -18,7 +18,8 @@
   },
   "thread_count": 3,
   "site_map" : "",
-  "product_list":[ 
-    ]
+  "product_list": [
+  ],
+  "categorylinks": ["collections/automatic-and-manual-espresso-machines" ,"collections/jura-automatic-espresso-machines","collections/saeco-automatic-espresso-machines"]
     
 }

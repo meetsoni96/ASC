@@ -35,6 +35,9 @@ namespace ASC1._0.JsonConfig
 
         [JsonProperty("product_list")]
         public List<object> product_list { get; set; }
+
+        [JsonProperty("categorylinks")]
+        public List<object> categorylinks { get; set; }
     }
     
 }

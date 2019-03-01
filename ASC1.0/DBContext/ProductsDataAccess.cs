@@ -28,6 +28,8 @@ namespace ASC1._0.DBContext
             sqlCommand.Parameters.AddWithValue("@Product_Url", product.ProductUrl);
             sqlCommand.Parameters.AddWithValue("@Availability", product.Availability);
             sqlCommand.Parameters.AddWithValue("@Image_Url", product.ImageUrl);
+            sqlCommand.Parameters.AddWithValue("@Match_Title", product.Match_Title);
+            sqlCommand.Parameters.AddWithValue("@Match_MPN", product.Match_MPN);
             objDBManager.ExecuteNonQuery(sqlCommand);
             //return objDBManager.ExecuteDataTable(sqlCommand);
 
