@@ -40,12 +40,12 @@ namespace ASC1._0.DBContext
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandType = CommandType.StoredProcedure;
 
-            if (id == "1")
+            if (id == "0")
             {
                 sqlCommand.CommandText = "dbo.GetProductsByMPNOrTitle";
                 sqlCommand.Parameters.AddWithValue("@MPN", txtSearch);
             }
-            else if (id == "2")
+            else if (id == "1")
             {
                 sqlCommand.CommandText = "dbo.GetProductsByMPNOrTitle";
                 sqlCommand.Parameters.AddWithValue("@Title", txtSearch);

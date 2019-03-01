@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Compare.aspx.cs" Inherits="ASC1._0.WebForm1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="GUI.aspx.cs" Inherits="ASC1._0.GUI" %>
 
 <!DOCTYPE html>
 
@@ -6,7 +6,7 @@
 <head runat="server">
     <title></title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"/>
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -33,14 +33,14 @@
                             <tr>
                                 <th style="text-align:center;" colspan="2">
                                     <asp:DropDownList ID="ddl_CategoryDomain1" CssClass="form-control btn btn-default btn-sm" runat="server" Width="360px">
-                                        <asp:ListItem Value="0">Select category for Anthony&#39;s Espresso</asp:ListItem>
+                                        <asp:ListItem Value="0">Select category for Consiglio&#39;s Kithenware</asp:ListItem>
                                     </asp:DropDownList>
                                 </th>
                             </tr>
                             <tr>
                                 <th style="text-align:center;" colspan="2">
                                     <asp:DropDownList ID="ddl_CategoryDomain2" runat="server" CssClass="form-control btn btn-default btn-sm" Width="360px">
-                                        <asp:ListItem Value="0">Select category for Consiglio&#39;s Kithenware</asp:ListItem>
+                                        <asp:ListItem Value="0">Select category for Anthony&#39;s Espresso</asp:ListItem>
                                     </asp:DropDownList>
                                 </th>
                             </tr>

@@ -10,7 +10,7 @@
 namespace ASC1._0 {
     
     
-    public partial class WebForm1 {
+    public partial class GUI {
         
         /// <summary>
         /// Asc_form control.
