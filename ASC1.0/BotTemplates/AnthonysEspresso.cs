@@ -119,7 +119,7 @@ namespace ASC1._0.BotTemplates
             }
 
             bool IsNextPage = !string.IsNullOrWhiteSpace(nextPageLink) ? true : false;
-            if(hdoc!=null)
+            if(hNode != null)
             {
                 foreach (var node in hNode)
                 {
