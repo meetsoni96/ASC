@@ -97,7 +97,7 @@ namespace ASC1._0.Utility.HttpRequest
         }
 
 
-        public static HtmlAgilityPack.HtmlDocument GetHtmlResponse(string url,JsonConfig.ConfigInfo cf)
+        public static HtmlAgilityPack.HtmlDocument GetHtmlResponse(string url,JsonConfig.ConfigInfo cf, string ip, int port)
         {
             string ActualUrl = string.Empty;
             if (url.Contains("http"))
@@ -112,7 +112,7 @@ namespace ASC1._0.Utility.HttpRequest
             Uri siteUri = new Uri(ActualUrl);
             string html = string.Empty;
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Ssl3 | System.Net.SecurityProtocolType.Tls | System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
-            WebProxy wp = new WebProxy("104.218.56.0", 60000);
+            WebProxy wp = new WebProxy(ip, port);
             wp.Credentials = new NetworkCredential("markettrack", "1dMfyW57jS");
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(siteUri);
             request.Proxy = wp;

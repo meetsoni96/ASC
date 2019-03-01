@@ -56,10 +56,10 @@ namespace ASC1._0.BotTemplates
             ConfigInfo obj = JsonConvert.DeserializeObject<ConfigInfo>(configContent);
             return obj;
         }
-        public override List<CategoryResult> GetCategoryLinks(string url)
+        public override List<CategoryResult> GetCategoryLinks(string url, string ip, int port)
         {
             //Get xdoc from URL
-            HtmlAgilityPack.HtmlDocument hdoc = CommonRequest.GetHtmlResponse(configObj.homepage, configObj);
+            HtmlAgilityPack.HtmlDocument hdoc = CommonRequest.GetHtmlResponse(configObj.homepage, configObj, ip, port);
           
             IEnumerable<HtmlAgilityPack.HtmlNode> hNode = hdoc.DocumentNode.SelectNodes("//*[@id='bs-megamenu']//ul/li[@class=' ']/a");
 
@@ -95,7 +95,7 @@ namespace ASC1._0.BotTemplates
             throw new NotImplementedException();
         }
 
-        public override List<ProductResults> GetProductListingUrl(string url,int categoryID)
+        public override List<ProductResults> GetProductListingUrl(string url,int categoryID,string ip, int  port)
         {
             string actualURL = string.Empty;
             string domain = configObj.domain;
@@ -108,7 +108,7 @@ namespace ASC1._0.BotTemplates
                 actualURL = domain + url;
             }
 
-            HtmlAgilityPack.HtmlDocument hdoc = CommonRequest.GetHtmlResponse(actualURL, configObj);
+            HtmlAgilityPack.HtmlDocument hdoc = CommonRequest.GetHtmlResponse(actualURL, configObj,ip,port);
 
             IEnumerable<HtmlAgilityPack.HtmlNode> hNode = hdoc.DocumentNode.SelectNodes("//div[@id='products']//h3[@class='name']/a");
 
@@ -129,7 +129,7 @@ namespace ASC1._0.BotTemplates
 
             if (IsNextPage)
             {
-                pr = GetProductListingUrl(nextPageLink,categoryID);
+                pr = GetProductListingUrl(nextPageLink, categoryID,ip, port);
             }
             return pr;
 
@@ -140,7 +140,7 @@ namespace ASC1._0.BotTemplates
         //    List<ProductResults>  pr =GetProductListingUrl(nextPageLink);
         //}
 
-        public override ProductInfo GetProductDetails(string url,int categoryID)
+        public override ProductInfo GetProductDetails(string url,int categoryID, string ip, int port)
         {
             string actualURL = string.Empty;
             string domain = configObj.domain;
@@ -152,7 +152,7 @@ namespace ASC1._0.BotTemplates
             {
                 actualURL = domain + url;
             }
-            HtmlAgilityPack.HtmlDocument hdoc = CommonRequest.GetHtmlResponse(actualURL, configObj);
+            HtmlAgilityPack.HtmlDocument hdoc = CommonRequest.GetHtmlResponse(actualURL, configObj, ip, port);
 
 
             //Image URL
