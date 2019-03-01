@@ -223,7 +223,6 @@ namespace ASC1._0.BotTemplates
 
             }
 
-
             string mpn = string.Empty;
 
             bool availibilty = true;
@@ -242,8 +241,8 @@ namespace ASC1._0.BotTemplates
             product.StrikeThroughPrice = finalStrikePrice;
             product.SKU = sku;
             product.ImageUrl = imageUrl;
-            product.Match_Title = Regex.Replace(productTitle, @"[^^0-9a-zA-Z]+", ",").ToLower();
-            product.Match_MPN = Regex.Replace(mpn, @"[^^0-9a-zA-Z]+", ",").ToLower();
+            product.Match_Title = Regex.Replace(productTitle, @"[^0-9a-zA-Z]+", "").ToLower();
+            product.Match_MPN = Regex.Replace(mpn, @"[^0-9a-zA-Z]+", "").ToLower();
             ProductsDataAccess productDAC = new ProductsDataAccess();
             productDAC.SaveProductsInDomain(product);
 
