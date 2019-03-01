@@ -118,13 +118,17 @@ namespace ASC1._0.BotTemplates
             }
 
             bool IsNextPage = !string.IsNullOrWhiteSpace(nextPageLink) ? true : false;
-            foreach (var node in hNode)
+            if(hdoc!=null)
             {
-                string hrefValue = node.Attributes["href"].Value;
-                string prodTitle = node.InnerText;
+                foreach (var node in hNode)
+                {
+                    string hrefValue = node.Attributes["href"].Value;
+                    string prodTitle = node.InnerText;
 
-                pr.Add(new ProductResults(hrefValue, prodTitle,categoryID));
+                    pr.Add(new ProductResults(hrefValue, prodTitle, categoryID));
+                }
             }
+            
 
             if (IsNextPage)
             {
@@ -156,18 +160,45 @@ namespace ASC1._0.BotTemplates
 
             //Image URL
             //meta property="og:image:secure_url" content=
-            string imageUrl = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//a[@class='info_colorbox']").Attributes["href"].Value;
+            string imageUrl = string.Empty;
+            string productTitle = string.Empty;
+            string brand = string.Empty;
+            string sku = string.Empty;
+            string strikePrice = string.Empty;
+            string price = string.Empty;
 
-            string productTitle = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//h1[@class='title-product']").InnerText.GetTrim();
+            if (hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//a[@class='info_colorbox']")!=null)
+            {
+                imageUrl = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//a[@class='info_colorbox']").Attributes["href"].Value;
+            }
+            
+            if(hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//h1[@class='title-product']")!=null)
+            {
+                productTitle = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//h1[@class='title-product']").InnerText.GetTrim();
+            }
 
-            string brand = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//li[contains(text(),'Brand')]/a").InnerText.GetTrim();
-            string sku = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//li[contains(text(),'Product Code')]").InnerText.GetTrim();
-            sku = sku.SubLastStringAfter(":").GetTrim();
-
-            string strikePrice = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//span[contains(@class,'price-old')]").InnerText.GetTrim();
-
-            string price = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//span[contains(@class,'price-new')]").InnerText.GetTrim();
-
+            if(hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//li[contains(text(),'Brand')]/a") !=null)
+            {
+                brand = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//li[contains(text(),'Brand')]/a").InnerText.GetTrim();
+            }
+            
+            if(hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//li[contains(text(),'Product Code')]")!=null)
+            {
+                 sku= hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//li[contains(text(),'Product Code')]").InnerText.GetTrim();
+                sku = sku.SubLastStringAfter(":").GetTrim();
+            }
+            
+            if(hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//span[contains(@class,'price-old')]")!=null)
+            {
+                strikePrice = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//span[contains(@class,'price-old')]").InnerText.GetTrim();
+            }
+            
+            if(hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//span[contains(@class,'price-new')]")!=null)
+            {
+                 price = hdoc.DocumentNode.SelectSingleNode("//div[@class='product-info']//span[contains(@class,'price-new')]").InnerText.GetTrim();
+            }
+            
+         
             string mpn = string.Empty;
 
             bool availibilty = true;
@@ -178,7 +209,7 @@ namespace ASC1._0.BotTemplates
 
             //save productDetails
             ProductInfo product = new ProductInfo();
-            product.DomainID = 1;
+            product.DomainID = 2;
             product.CategoryID = categoryID;
             product.Title = productTitle;
             product.MPN = mpn;
