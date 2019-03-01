@@ -13,6 +13,7 @@ using ASC1._0.Utility.HttpRequest;
 using ASC1._0.Utility;
 using DevComponents.Html;
 using ASC1._0.DBContext;
+using System.Text.RegularExpressions;
 
 namespace ASC1._0.BotTemplates
 {
@@ -194,6 +195,8 @@ namespace ASC1._0.BotTemplates
             product.StrikeThroughPrice = finalStrikePrice;
             product.SKU = sku;
             product.ImageUrl = imageUrl;
+            product.Match_Title = Regex.Replace(productTitle, @"[^^0-9a-zA-Z]+", ",");
+            product.Match_MPN = Regex.Replace(mpn, @"[^^0-9a-zA-Z]+", ",");
             ProductsDataAccess productDAC = new ProductsDataAccess();
             productDAC.SaveProductsInDomain(product);
 
