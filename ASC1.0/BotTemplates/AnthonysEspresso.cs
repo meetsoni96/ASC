@@ -224,7 +224,7 @@ namespace ASC1._0.BotTemplates
             ProductsDataAccess productDAC = new ProductsDataAccess();
             productDAC.SaveProductsInDomain(product);
 
-            return new ProductInfo(2, categoryID, actualURL, productTitle, finalPrice, finalStrikePrice, sku, mpn, availibilty);
+            return new ProductInfo(2, categoryID, actualURL, productTitle, finalPrice, finalStrikePrice, sku, mpn, availibilty,String.Empty,string.Empty);
         }
     }
 }
